@@ -5,10 +5,7 @@ const { sign, verify } = require('../lib/jwt')
 
 describe('jwt', () => {
 	describe('#1 HS256', () => {
-		const header = {
-			alg: 'HS256',
-			typ: 'JWT',
-		}
+		const header = { alg: 'HS256', typ: 'JWT' }
 
 		const payload = {
 			sub: '1234567890',
@@ -16,7 +13,8 @@ describe('jwt', () => {
 			iat: 1516239022,
 		}
 
-		const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+		const token =
+			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 
 		const secret = 'your-256-bit-secret'
 		const algorithm = {
