@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const fs = require('fs')
 
 const { sign, verify } = require('../lib/jwt')
-const { hs256, rs256 } = require('../lib/algorithm')
+const { hs256, rs256, es256 } = require('../lib/algorithm')
 
 describe('jwt', () => {
 	describe('#1 HS256', () => {
@@ -59,6 +59,38 @@ describe('jwt', () => {
 
 		it('verify', () => {
 			expect(verify(token, publicKey, rs256)).to.eql(true)
+		})
+	})
+
+	describe('#1 ES256', () => {
+		const header = {
+			alg: 'ES256',
+			typ: 'JWT',
+		}
+
+		const payload = {
+			sub: '1234567890',
+			name: 'John Doe',
+			admin: true,
+			iat: 1516239022,
+		}
+
+		const privateKey = fs.readFileSync(`${__dirname}/es256/private.key`)
+		const publicKey = fs.readFileSync(`${__dirname}/es256/public.key`)
+
+		const token = [
+			'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9',
+			'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0',
+			'tyh-VfuzIxCyGYDlkBA7DfyjrqmSHu6pQ2hoZuFqUSLPNY2N0mpHb3nk5K17HWP_3cYHBw7AhHale5wky6-sVA',
+		].join('.')
+
+		it('verify', () => {
+			expect(verify(token, publicKey, es256)).to.eql(true)
+		})
+
+		it('sign && verify', () => {
+			const newToken = sign(header, payload, privateKey, es256)
+			expect(verify(newToken, publicKey, es256)).to.eql(true)
 		})
 	})
 })

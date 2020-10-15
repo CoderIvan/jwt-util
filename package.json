@@ -18,5 +18,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "mocha ./test"
+  },
+  "dependencies": {
+    "ecdsa-sig-formatter": "^1.0.11"
   }
 }
