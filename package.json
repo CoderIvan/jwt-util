@@ -17,6 +17,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "ci": "npm run lint",
     "test": "mocha ./test"
   },
   "dependencies": {
