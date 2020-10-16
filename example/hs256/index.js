@@ -15,8 +15,10 @@ const token = jwt.sign(
 	}
 )
 
+// eslint-disable-next-line no-console
 console.log(token) // 输出: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.reGQzG3OKdoIMWLDKOZ4TICJit3EW69cQE72E2CfzRE
 
 const isValid = jwt.verify(token, secret)
 
+// eslint-disable-next-line no-console
 console.log(isValid) // 输出: true
