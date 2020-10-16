@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const fs = require('fs')
 
 const { sign, verify } = require('../lib/jwt')
-const { hs256, rs256, es256 } = require('../lib/algorithm')
+const { HS256, RS256, ES256 } = require('../lib/algorithm')
 
 describe('jwt', () => {
 	describe('#1 HS256', () => {
@@ -23,11 +23,11 @@ describe('jwt', () => {
 		const secret = 'your-256-bit-secret'
 
 		it('sign', () => {
-			expect(sign(header, payload, secret, hs256)).to.eql(token)
+			expect(sign(header, payload, secret, HS256)).to.eql(token)
 		})
 
 		it('verify', () => {
-			expect(verify(token, secret, hs256)).to.eql(true)
+			expect(verify(token, secret, HS256)).to.eql(true)
 		})
 	})
 
@@ -54,11 +54,11 @@ describe('jwt', () => {
 		const publicKey = fs.readFileSync(`${__dirname}/rs256/public.key`)
 
 		it('sign', () => {
-			expect(sign(header, payload, privateKey, rs256)).to.eql(token)
+			expect(sign(header, payload, privateKey, RS256)).to.eql(token)
 		})
 
 		it('verify', () => {
-			expect(verify(token, publicKey, rs256)).to.eql(true)
+			expect(verify(token, publicKey, RS256)).to.eql(true)
 		})
 	})
 
@@ -85,12 +85,12 @@ describe('jwt', () => {
 		].join('.')
 
 		it('verify', () => {
-			expect(verify(token, publicKey, es256)).to.eql(true)
+			expect(verify(token, publicKey, ES256)).to.eql(true)
 		})
 
 		it('sign && verify', () => {
-			const newToken = sign(header, payload, privateKey, es256)
-			expect(verify(newToken, publicKey, es256)).to.eql(true)
+			const newToken = sign(header, payload, privateKey, ES256)
+			expect(verify(newToken, publicKey, ES256)).to.eql(true)
 		})
 	})
 })
